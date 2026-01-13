@@ -2,14 +2,15 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Test Report System"
+        Title="KICT Test Certificate"
+        Icon="image/logo56.png"
         Height="800" Width="720"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True" WindowStyle="None">
 
     <Window.Resources>
-        <Style x:Key="ModernInput" TargetType="Control">
+        <Style x:Key="ModernInput" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#E0E6ED"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -19,19 +20,140 @@
             <Setter Property="Cursor" Value="IBeam"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Control">
+                    <ControlTemplate TargetType="TextBox">
                         <Border x:Name="border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="8">
-                            <ContentPresenter VerticalAlignment="Center" Margin="5,0"/>
+                            <ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" Margin="5,0"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#115E7B"/>
                             </Trigger>
                             <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#0E7490"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid Background="Transparent">
+                            <Path Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="#475569"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#F0F9FF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#E0F2FE"/>
+                                <Setter Property="Foreground" Value="#115E7B"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                    <Condition Property="IsHighlighted" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="border" Property="Background" Value="#BAE6FD"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E6ED"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ModernComboBoxItem}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter x:Name="ContentSite"
+                                                      Grid.Column="0"
+                                                      Content="{TemplateBinding SelectionBoxItem}"
+                                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Left"
+                                                      Margin="10,0"/>
+                                    <ToggleButton Grid.Column="1"
+                                                  Style="{StaticResource ComboBoxToggleButton}"
+                                                  IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </Grid>
+                            </Border>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   Placement="Bottom"
+                                   AllowsTransparency="True">
+                                <Border Background="White"
+                                        BorderBrush="#E0E6ED"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        MaxHeight="200"
+                                        MinWidth="{TemplateBinding ActualWidth}"
+                                        Margin="0,4,0,0">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#000000" Opacity="0.15" BlurRadius="12" ShadowDepth="4" Direction="270"/>
+                                    </Border.Effect>
+                                    <ScrollViewer Margin="0,4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#115E7B"/>
+                            </Trigger>
+                            <Trigger Property="IsDropDownOpen" Value="True">
                                 <Setter TargetName="border" Property="BorderBrush" Value="#0E7490"/>
                                 <Setter TargetName="border" Property="BorderThickness" Value="2"/>
                             </Trigger>
@@ -86,8 +208,9 @@
             <Border Grid.Row="0" Background="#115E7B" CornerRadius="16,16,0,0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                 <Grid Margin="20,0">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="📄" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="Test Report System" Foreground="White" FontSize="18" FontWeight="Bold"/>
+                        <Image Source="image/logo.png" Width="32" Height="32" Margin="0,0,10,0"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="KICT Test Certificate(한국건설기술 연구소시험 성적서)" Foreground="White" FontSize="18" FontWeight="Bold"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <Button x:Name="MinimizeButton" Content="—" Background="Transparent" BorderThickness="0"
@@ -142,8 +265,19 @@
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="30,20">
                 <StackPanel>
-                    <TextBlock Text="시험 성적서 타입 (REPORT TYPE)" Style="{StaticResource LabelText}"/>
-                    <ComboBox Style="{StaticResource ModernInput}" Margin="0,0,0,20" Padding="10,0"/>
+                    <TextBlock Text="시험 성적서 타입" Style="{StaticResource LabelText}"/>
+                    <ComboBox Style="{StaticResource ModernComboBox}" Margin="0,0,0,20" Padding="10,0">
+                        <ComboBoxItem Content="KS F 2405 - 콘크리트 압축강도 시험" IsSelected="True"/>
+                        <ComboBoxItem Content="KS F 2408 - 콘크리트 휨강도 시험"/>
+                        <ComboBoxItem Content="KS F 2423 - 콘크리트 염화물 함량 시험"/>
+                        <ComboBoxItem Content="KS F 2441 - 콘크리트 슬럼프 시험"/>
+                        <ComboBoxItem Content="KS F 2456 - 콘크리트 공기량 시험"/>
+                        <ComboBoxItem Content="KS F 4009 - 레미콘 품질 시험"/>
+                        <ComboBoxItem Content="KS L 5105 - 시멘트 강도 시험"/>
+                        <ComboBoxItem Content="KS F 2502 - 골재 체가름 시험"/>
+                        <ComboBoxItem Content="KS F 2527 - 골재 밀도 및 흡수율 시험"/>
+                        <ComboBoxItem Content="기타 - 사용자 정의"/>
+                    </ComboBox>
 
                     <TextBlock Text="LOAD EXCEL FOLDER" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
@@ -176,40 +310,40 @@
                         </Button>
                     </Grid>
 
-                    <TextBlock Text="의뢰자명 (Client Name)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="의뢰자명" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                        <TextBox Style="{StaticResource ModernInput}"/>
+                        <ComboBox x:Name="ClientNameComboBox" Style="{StaticResource ModernComboBox}" IsEditable="True"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="+" Style="{StaticResource ABButton}"/>
+                            <Button Content="+" Style="{StaticResource ABButton}" Click="AddClientName_Click"/>
                             <Button Content="−" Style="{StaticResource ABButton}"/>
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Text="의뢰자 주소 (Address)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="의뢰자 주소" Style="{StaticResource LabelText}"/>
                     <TextBox Style="{StaticResource ModernInput}" Margin="0,0,0,20"/>
 
-                    <TextBlock Text="성적서 용도 (Purpose)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="성적서 용도" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                        <ComboBox Style="{StaticResource ModernInput}"/>
+                        <ComboBox x:Name="PurposeComboBox" Style="{StaticResource ModernComboBox}" IsEditable="True"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="+" Style="{StaticResource ABButton}"/>
+                            <Button Content="+" Style="{StaticResource ABButton}" Click="AddPurpose_Click"/>
                             <Button Content="−" Style="{StaticResource ABButton}"/>
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Text="시험대상품목 (Product Item)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="시험대상품목" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                        <ComboBox Style="{StaticResource ModernInput}"/>
+                        <ComboBox x:Name="ProductItemComboBox" Style="{StaticResource ModernComboBox}" IsEditable="True"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="+" Style="{StaticResource ABButton}"/>
+                            <Button Content="+" Style="{StaticResource ABButton}" Click="AddProductItem_Click"/>
                             <Button Content="−" Style="{StaticResource ABButton}"/>
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Text="시험기간 (Test Period)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="시험기간" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="30"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                         <DatePicker Height="45"
@@ -226,12 +360,14 @@
                                     materialDesign:HintAssist.IsFloating="True"/>
                     </Grid>
 
-                    <TextBlock Text="시험환경 (Environment)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="시험환경" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                        <TextBox Style="{StaticResource ModernInput}" Text="25±2°C, 50±10%R.H."/>
+                        <ComboBox x:Name="EnvironmentComboBox" Style="{StaticResource ModernComboBox}" IsEditable="True">
+                            <ComboBoxItem Content="25±2°C, 50±10%R.H." IsSelected="True"/>
+                        </ComboBox>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="+" Style="{StaticResource ABButton}"/>
+                            <Button Content="+" Style="{StaticResource ABButton}" Click="AddEnvironment_Click"/>
                             <Button Content="−" Style="{StaticResource ABButton}"/>
                         </StackPanel>
                     </Grid>
@@ -239,31 +375,37 @@
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="20"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <TextBlock Text="작성자 (Author)" Style="{StaticResource LabelText}"/>
+                            <TextBlock Text="작성자" Style="{StaticResource LabelText}"/>
                             <Grid>
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                <ComboBox Style="{StaticResource ModernInput}"/>
-                                <Button Grid.Column="1" Content="A" Style="{StaticResource ABButton}"/>
+                                <ComboBox x:Name="AuthorComboBox" Style="{StaticResource ModernComboBox}" IsEditable="True"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="+" Style="{StaticResource ABButton}" Click="AddAuthor_Click"/>
+                                    <Button Content="−" Style="{StaticResource ABButton}"/>
+                                </StackPanel>
                             </Grid>
                         </StackPanel>
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="승인자 (Approver)" Style="{StaticResource LabelText}"/>
+                            <TextBlock Text="승인자" Style="{StaticResource LabelText}"/>
                             <Grid>
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                <ComboBox Style="{StaticResource ModernInput}"/>
-                                <Button Grid.Column="1" Content="A" Style="{StaticResource ABButton}"/>
+                                <ComboBox x:Name="ApproverComboBox" Style="{StaticResource ModernComboBox}" IsEditable="True"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="+" Style="{StaticResource ABButton}" Click="AddApprover_Click"/>
+                                    <Button Content="−" Style="{StaticResource ABButton}"/>
+                                </StackPanel>
                             </Grid>
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Text="성적서 번호 (Report No.)" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="성적서 번호" Style="{StaticResource LabelText}"/>
                     <TextBox Style="{StaticResource ModernInput}" Margin="0,0,0,20"/>
                 </StackPanel>
             </ScrollViewer>
 
             <Border Grid.Row="2" Background="#F9FAFB" CornerRadius="0,0,16,16" BorderBrush="#E5E7EB" BorderThickness="0,1,0,0">
                 <Grid Margin="30,0">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="80"/></Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="100"/></Grid.ColumnDefinitions>
                     
                     <Button Grid.Column="0" Height="55" BorderThickness="0" Foreground="White" FontWeight="Bold" FontSize="16" Cursor="Hand">
                         <Button.Background>
@@ -327,7 +469,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <TextBlock Text="⚙️" FontSize="20" VerticalAlignment="Center"/>
+                        <TextBlock Text="설정" FontSize="15" VerticalAlignment="Center"/>
                     </Button>
                 </Grid>
             </Border>
