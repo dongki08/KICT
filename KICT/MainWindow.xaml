@@ -5,7 +5,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         Title="KICT Test Certificate"
         Icon="image/logo56.png"
-        Height="800" Width="720"
+        Height="1030" Width="720"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True" WindowStyle="None">
@@ -14,8 +14,9 @@
         <Style x:Key="ModernInput" TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#E0E6ED"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Height" Value="45"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="12,0"/>
             <Setter Property="Cursor" Value="IBeam"/>
@@ -64,6 +65,7 @@
         <Style x:Key="ModernComboBoxItem" TargetType="ComboBoxItem">
             <Setter Property="Height" Value="40"/>
             <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#374151"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -101,7 +103,8 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="#E0E6ED"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="Padding" Value="12,0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="ItemContainerStyle" Value="{StaticResource ModernComboBoxItem}"/>
@@ -172,8 +175,8 @@
         </Style>
 
         <Style x:Key="ABButton" TargetType="Button">
-            <Setter Property="Width" Value="45"/>
-            <Setter Property="Height" Value="45"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="Margin" Value="4,0,0,0"/>
             <Setter Property="Background" Value="#E2E8F0"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -204,14 +207,14 @@
     <Border CornerRadius="16" Background="White" BorderBrush="#D1D5DB" BorderThickness="1" Margin="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/> <RowDefinition Height="*"/>  <RowDefinition Height="100"/> </Grid.RowDefinitions>
+                <RowDefinition Height="50"/> <RowDefinition Height="*"/>  <RowDefinition Height="80"/> </Grid.RowDefinitions>
 
             <Border Grid.Row="0" Background="#115E7B" CornerRadius="16,16,0,0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                 <Grid Margin="20,0">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Image Source="image/logo.png" Width="32" Height="32" Margin="0,0,10,0"
                                RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock Text="KICT Test Certificate(한국건설기술 연구소시험 성적서)" Foreground="White" FontSize="18" FontWeight="Bold"/>
+                        <TextBlock Text="KICT Test Certificate(한국건설기술 연구소시험 성적서)" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,3,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <Button x:Name="MinimizeButton" Content="—" Background="Transparent" BorderThickness="0"
@@ -264,7 +267,7 @@
                 </Grid>
             </Border>
 
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="30,20">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Disabled" Margin="30,30">
                 <StackPanel>
                     <TextBlock Text="시험 성적서 타입" Style="{StaticResource LabelText}"/>
                     <ComboBox Style="{StaticResource ModernComboBox}" Margin="0,0,0,20" Padding="10,0">
@@ -283,9 +286,9 @@
                     <TextBlock Text="LOAD EXCEL FOLDER" Style="{StaticResource LabelText}"/>
                     <Grid Margin="0,0,0,20">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="60"/></Grid.ColumnDefinitions>
-                        <TextBox Style="{StaticResource ModernInput}" Text="C:/Users/Reports/Excel..." Foreground="#9CA3AF"/>
+                        <TextBox Style="{StaticResource ModernInput}" Text="C:/Users/Reports/Excel..."/>
                         <Button Grid.Column="1" Margin="8,0,0,0" Background="#115E7B" Foreground="White"
-                                Width="50" Height="45" BorderThickness="0" Cursor="Hand" FontSize="18">
+                                Width="45" Height="40" BorderThickness="0" Cursor="Hand" FontSize="18">
                             <Button.Style>
                                 <Style TargetType="Button">
                                     <Setter Property="Background" Value="#115E7B"/>
@@ -445,11 +448,11 @@
                         </Button.Style>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <fa:ImageAwesome Icon="Print"
-                                             Width="22"
-                                             Height="22"
+                                             Width="20"
+                                             Height="20"
                                              Foreground="White"
                                              Margin="0,0,10,0"/>
-                            <TextBlock Text="성적서 발행 (Print)" VerticalAlignment="Center"/>
+                            <TextBlock Text="성적서 발행" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
 
@@ -483,11 +486,11 @@
                         
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <fa:ImageAwesome Icon="Gear"
-                                             Width="22"
-                                             Height="22"
+                                             Width="20"
+                                             Height="20"
                                              Foreground="#4B5563"
                                              Margin="0,0,10,0"/>
-                            <TextBlock Text="설정" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBlock Text="설정" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                 </Grid>
