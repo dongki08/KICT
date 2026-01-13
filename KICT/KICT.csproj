@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
@@ -9,12 +9,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+        <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+        <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="image\logo.png" />
-      <Resource Include="image\logo56.png" />
+        <Resource Include="image\logo.png" />
+        <Resource Include="image\logo56.png" />
+        <Resource Include="image\print-solid-full.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="image\" />
     </ItemGroup>
 
 </Project>
