@@ -39,6 +39,16 @@ public partial class MainWindow : Window
         this.Close();
     }
 
+    private void SettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new SettingsDialog
+        {
+            Owner = this
+        };
+
+        dialog.ShowDialog();
+    }
+
     private void AddClientName_Click(object sender, RoutedEventArgs e)
     {
         ShowAddItemDialog("의뢰자명 추가", ClientNameComboBox);

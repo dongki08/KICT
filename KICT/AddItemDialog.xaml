@@ -9,7 +9,7 @@
         WindowStyle="None"
         ResizeMode="NoResize">
 
-    <Border CornerRadius="12" Background="White" BorderBrush="#D1D5DB" BorderThickness="1" Margin="10">
+    <Border CornerRadius="12" Background="{DynamicResource CardBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Margin="10">
         <Border.Effect>
             <DropShadowEffect Color="#000000" Opacity="0.2" BlurRadius="16" ShadowDepth="4" Direction="270"/>
         </Border.Effect>
@@ -21,19 +21,19 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" Background="#115E7B" CornerRadius="12,12,0,0">
+            <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" CornerRadius="12,12,0,0">
                 <TextBlock x:Name="DialogTitle" Text="항목 추가"
-                           Foreground="White" FontSize="16" FontWeight="Bold"
+                           Foreground="{DynamicResource TextOnPrimaryBrush}" FontSize="16" FontWeight="Bold"
                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Border>
 
             <!-- Content -->
             <StackPanel Grid.Row="1" Margin="30,20">
-                <TextBlock Text="새 항목 이름" Foreground="#4B5563" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                <TextBlock Text="새 항목 이름" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,8"/>
                 <TextBox x:Name="ItemTextBox"
                          Height="40"
                          Padding="12,0"
-                         BorderBrush="#E0E6ED"
+                         BorderBrush="{DynamicResource InputBorderBrush}" Foreground="{DynamicResource TextPrimaryBrush}"
                          BorderThickness="1"
                          VerticalContentAlignment="Center"
                          FontSize="14">
@@ -43,7 +43,7 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="TextBox">
                                         <Border x:Name="border"
-                                                Background="White"
+                                                Background="{DynamicResource InputBackgroundBrush}"
                                                 BorderBrush="{TemplateBinding BorderBrush}"
                                                 BorderThickness="{TemplateBinding BorderThickness}"
                                                 CornerRadius="8">
@@ -53,7 +53,7 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsFocused" Value="True">
-                                                <Setter TargetName="border" Property="BorderBrush" Value="#115E7B"/>
+                                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource PrimaryAccentBrush}"/>
                                                 <Setter TargetName="border" Property="BorderThickness" Value="2"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
@@ -74,16 +74,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" Content="취소" Height="40"
-                        Background="#F3F4F6"
-                        BorderBrush="#D1D5DB"
+                        Background="{DynamicResource ButtonSecondaryBackgroundBrush}"
+                        BorderBrush="{DynamicResource ButtonSecondaryBorderBrush}"
                         BorderThickness="1"
-                        Foreground="#374151"
+                        Foreground="{DynamicResource TextPrimaryBrush}"
                         FontWeight="SemiBold"
                         Cursor="Hand"
                         Click="CancelButton_Click">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="#F3F4F6"/>
+                            <Setter Property="Background" Value="{DynamicResource ButtonSecondaryBackgroundBrush}"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
@@ -98,7 +98,7 @@
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#E5E7EB"/>
+                                    <Setter Property="Background" Value="{DynamicResource ButtonSecondaryHoverBrush}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -106,15 +106,15 @@
                 </Button>
 
                 <Button Grid.Column="2" Content="추가" Height="40"
-                        Background="#115E7B"
+                        Background="{DynamicResource PrimaryBrush}"
                         BorderThickness="0"
-                        Foreground="White"
+                        Foreground="{DynamicResource TextOnPrimaryBrush}"
                         FontWeight="SemiBold"
                         Cursor="Hand"
                         Click="AddButton_Click">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="#115E7B"/>
+                            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="Button">
@@ -127,7 +127,7 @@
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#0E5A6F"/>
+                                    <Setter Property="Background" Value="{DynamicResource PrimaryHoverBrush}"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
